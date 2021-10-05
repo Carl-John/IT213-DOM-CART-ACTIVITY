@@ -17,6 +17,9 @@ function loadEventListeners() {
     //CLEAR CART BUTTON
     clearCartBtn.addEventListener('click', clearCart);
 
+    //DOCUMENT READY
+    document.addEventListener('DOMContentLoaded', getFromLocalStorage);
+
 }
 
 //FUNCTION
@@ -60,7 +63,7 @@ function addIntoCart(course) {
           <td>${course.prize}</td>
           <td>
                 <a href="#" class="remove" data-id="${course.id}">X</a>
-
+            </td>
       </tr>
 
       `;
@@ -91,7 +94,7 @@ function getCoursesFromStorage() {
     if(localStorage.getItem('courses') === null) {
         courses = [];
     } else {
-        courses.JSON.parse(localStorage.getItem('courses') );
+        courses = JSON.parse(localStorage.getItem('courses') );
     }
     return courses;
 }
@@ -114,3 +117,29 @@ function clearCart() {
 
 }
 
+//LOADS WHEN DOCUMENT IS READY AND PRINT COURSES INTO SHOPPING CART
+function getFromLocalStorage() {
+    let coursesLS = getCoursesFromStorage();
+
+    //LOOP THROUGH THE COURSES AND PRINT INTO THE CART
+    coursesLS.forEach(function(course) {
+        //CREATE THE TABLE ROW
+        const row = document.createElement('tr');
+
+        //PRINT THE CONTENT
+        row.innerHTML = `
+        <tr>
+        <td>
+            <img src="${course.image}" width=100>
+        </td>
+        <td>${course.title}</td>
+        <td>${course.prize}</td>
+        <td>
+              <a href="#" class="remove" data-id="${course.id}">X</a>
+        </td>
+    </tr>
+        `;
+        shoppingCartContent.appendChild(row);
+    })
+
+}
