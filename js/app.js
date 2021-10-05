@@ -114,7 +114,12 @@ function clearCart() {
         while(shoppingCartContent.firstChild) {
             shoppingCartContent.removeChild(shoppingCartContent.firstChild);
         }
-
+    //CLEAR FROM LOCAL STORAGE
+    clearLocalStorage();
+}
+//CLEARS THE WHOLE LOCAL STORAGE
+function clearLocalStorage() {
+    localStorage.clear();
 }
 
 //LOADS WHEN DOCUMENT IS READY AND PRINT COURSES INTO SHOPPING CART
