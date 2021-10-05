@@ -66,6 +66,34 @@ function addIntoCart(course) {
       `;
         //ADD INTO THE SHOPPING CART
        shoppingCartContent.appendChild(row);
+
+       //ADD COURSES INTO THE STORAGE
+       saveIntoStorage(course);
+}
+
+//ADD COURSES INTO THE LOCAL STORAGE
+function saveIntoStorage(course) {
+    let courses = getCoursesFromStorage();
+
+    //ADD COURSE INTO THE ARRAY
+    courses.push(course);
+
+    //SINCE STORAGE ONLY SAVES STRINGS, CONVERT JSON INTO STRING
+    localStorage.setItem('courses', JSON.stringify(courses) );
+}
+
+//GET THE CONTENT FROM THE STORAGE
+function getCoursesFromStorage() {
+
+    let courses;
+
+    //IF SOMETHING EXISTON STORAGE THEN GET VALUE OTHERWISE CREATE AN EMPTY ARRAY
+    if(localStorage.getItem('courses') === null) {
+        courses = [];
+    } else {
+        courses.JSON.parse(localStorage.getItem('courses') );
+    }
+    return courses;
 }
 
 
