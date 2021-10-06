@@ -102,9 +102,33 @@ function getCoursesFromStorage() {
 
 //REMOVE COURSE FROM DOM
 function removeCourse(e) {
+    let course, courseId;
+
+    //REMOVE FROM THE DOM
     if(e.target.classList.contains('remove')) {
         e.target.parentElement.parentElement.remove();
+        course = e.target.parentElement.parentElement;
+        courseId = course.querySelector('a').getAttribute('data-id');
     }
+    console.log(courseId);
+    //REMOVE COURSE FROM THE LOCAL STORAGE
+    removeCourseLocalStorage(courseId);
+
+}
+//REMOVE FROM LOCAL STORAGE
+function removeCourseLocalStorage(id) {
+    //GET THE LOCAL STORAGE DATA
+    let coursesLS = getCoursesFromStorage();
+
+    //LOOP THROUGH THE ARRAY AND FIND THE INDEX TO REMOVE
+    coursesLS.forEach(function(courseLS,index){
+        if(courseLS.id === id) {
+            coursesLS.splice(index, 1);
+        }
+    });
+
+    //ADD THE REST OF THE ARRAY
+    localStorage.setItem('courses', JSON.stringify(coursesLS));
 }
 
 //CLEAR THE SHOPPING CARRT
